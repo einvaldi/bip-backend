@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  message   String
+  source    String   @default("web")
+  createdAt DateTime @default(now())
+}
+
+model CvApplication {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  message   String?
+  fileUrl   String?
+  fileName  String?
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  sessionId String
+  role      String
+  content   String
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+model ExchangeLead {
+  id        String   @id @default(uuid())
+  category  String
+  name      String
+  email     String
+  phone     String?
+  details   String?
+  createdAt DateTime @default(now())
+}
+
+model SophoneCall {
+  id        String   @id @default(uuid())
+  caller    String
+  number    String
+  duration  Int?
+  status    String   @default("MISSED")
+  createdAt DateTime @default(now())
+}
